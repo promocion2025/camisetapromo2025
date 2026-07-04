@@ -1,15 +1,18 @@
 <!-- Header -->
 <header class="header">
+  <div class="promo-banner">
+    <img src="assets/promocion-header.jpg" alt="Promoción 2026" class="promo-banner-img">
+  </div>
   <div class="header-content">
     <button class="admin-toggle" [class.logged-in]="isAdmin" (click)="toggleAdminModal()">
       <i [class]="isAdmin ? 'fas fa-sign-out-alt' : 'fas fa-lock'"></i>
       <span>{{ isAdmin ? 'Salir' : 'Admin' }}</span>
     </button>
-    
+
     <div class="logo-wrapper">
       <img src="assets/logo-colegio.png" alt="Logo UNAJMA" class="logo">
     </div>
-    
+
     <h1>Pedido de Camisetas</h1>
     <p class="subtitle">Inscripción para la Promoción 2026</p>
     <div class="promo-badge">
