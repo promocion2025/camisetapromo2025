@@ -88,22 +88,27 @@ service cloud.firestore {
     }
 
     match /comentarios_recuerdos/{comentarioId} {
-      allow read: if resource.data.estado == 'aprobado' || isAdmin();
+      allow read: if resource.data.estado in ['publicado', 'aprobado'] || isAdmin();
       allow create: if request.resource.data.keys().hasOnly([
           'recuerdoId',
+          'parentId',
           'nombre',
           'mensaje',
           'estado',
+          'censurado',
           'fecha'
         ])
         && request.resource.data.recuerdoId is string
+        && request.resource.data.parentId is string
+        && request.resource.data.parentId.size() <= 120
         && request.resource.data.nombre is string
         && request.resource.data.nombre.size() >= 2
         && request.resource.data.nombre.size() <= 80
         && request.resource.data.mensaje is string
         && request.resource.data.mensaje.size() >= 3
         && request.resource.data.mensaje.size() <= 280
-        && request.resource.data.estado == 'pendiente';
+        && request.resource.data.censurado is bool
+        && request.resource.data.estado == 'publicado';
       allow update, delete: if isAdmin();
     }
 

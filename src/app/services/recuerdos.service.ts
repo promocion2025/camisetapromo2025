@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, query, updateDoc, where } from '@angular/fire/firestore';
 import { Observable, catchError, map, of } from 'rxjs';
 import { ComentarioRecuerdo, ComentarioRecuerdoRegistro, Recuerdo, RecuerdoRegistro } from '../models/recuerdo.model';
+import { censurarTexto } from '../utils/text-moderation.util';
 import { CloudinaryStorageService } from './cloudinary-storage.service';
 
 @Injectable({
@@ -39,9 +40,9 @@ export class RecuerdosService {
     );
   }
 
-  obtenerComentariosAprobados(): Observable<ComentarioRecuerdo[]> {
+  obtenerComentariosPublicos(): Observable<ComentarioRecuerdo[]> {
     const ref = collection(this.firestore, this.comentariosColeccion);
-    const q = query(ref, where('estado', '==', 'aprobado'));
+    const q = query(ref, where('estado', 'in', ['publicado', 'aprobado']));
     return (collectionData(q, { idField: 'id' }) as Observable<ComentarioRecuerdo[]>).pipe(
       map(comentarios => this.ordenarComentarios(comentarios)),
       catchError(err => {
@@ -86,11 +87,16 @@ export class RecuerdosService {
 
   async crearComentario(data: ComentarioRecuerdoRegistro): Promise<void> {
     const ref = collection(this.firestore, this.comentariosColeccion);
+    const nombre = censurarTexto(data.nombre);
+    const mensaje = censurarTexto(data.mensaje);
+
     await addDoc(ref, {
       recuerdoId: data.recuerdoId,
-      nombre: data.nombre.trim(),
-      mensaje: data.mensaje.trim(),
-      estado: 'pendiente',
+      parentId: data.parentId?.trim() || '',
+      nombre: nombre.texto,
+      mensaje: mensaje.texto,
+      estado: 'publicado',
+      censurado: nombre.censurado || mensaje.censurado,
       fecha: new Date().toISOString()
     });
   }
@@ -105,10 +111,6 @@ export class RecuerdosService {
 
   destacarRecuerdo(id: string): Promise<void> {
     return updateDoc(doc(this.firestore, this.coleccion, id), { estado: 'destacado' });
-  }
-
-  aprobarComentario(id: string): Promise<void> {
-    return updateDoc(doc(this.firestore, this.comentariosColeccion, id), { estado: 'aprobado' });
   }
 
   eliminarComentario(id: string): Promise<void> {

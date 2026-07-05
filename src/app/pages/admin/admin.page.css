@@ -258,6 +258,10 @@
   border-left: 4px solid var(--gold);
 }
 
+.admin-comment.censored {
+  border-left: 4px solid var(--maroon);
+}
+
 .admin-comment > div:first-child {
   display: flex;
   align-items: center;

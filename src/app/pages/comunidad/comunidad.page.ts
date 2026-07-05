@@ -16,7 +16,7 @@ export class ComunidadPageComponent {
   private readonly recuerdosService = inject(RecuerdosService);
 
   readonly recuerdos$ = this.recuerdosService.obtenerAprobados();
-  readonly comentarios$ = this.recuerdosService.obtenerComentariosAprobados();
+  readonly comentarios$ = this.recuerdosService.obtenerComentariosPublicos();
   readonly resumen$ = combineLatest([this.recuerdos$, this.comentarios$]).pipe(
     map(([recuerdos, comentarios]) => ({
       recuerdos: recuerdos.length,

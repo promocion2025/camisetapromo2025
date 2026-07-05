@@ -111,7 +111,12 @@
 
 .comment-list {
   display: grid;
-  gap: 9px;
+  gap: 12px;
+}
+
+.comment-thread {
+  display: grid;
+  gap: 8px;
 }
 
 .comment-item {
@@ -121,11 +126,47 @@
   background: var(--linen);
 }
 
+.comment-item.reply {
+  background: var(--white);
+}
+
 .comment-item strong {
   display: block;
   margin-bottom: 4px;
   color: var(--ink);
   font-size: 0.82rem;
+}
+
+.comment-item p {
+  overflow-wrap: anywhere;
+}
+
+.comment-reply-action {
+  margin-top: 8px;
+  border: 0;
+  background: transparent;
+  color: var(--maroon);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 0;
+}
+
+.comment-reply-action i {
+  margin-right: 5px;
+}
+
+.reply-list,
+.reply-form {
+  margin-left: 16px;
+  padding-left: 12px;
+  border-left: 2px solid var(--line-soft);
+}
+
+.reply-list {
+  display: grid;
+  gap: 8px;
 }
 
 .comment-empty {

@@ -32,10 +32,52 @@
       </div>
 
       <section class="comments-box" *ngIf="allowComments && draftPara(recuerdo).abierto">
-        <div class="comment-list" *ngIf="comentariosDe(recuerdo).length > 0; else noComments">
-          <article class="comment-item" *ngFor="let comentario of comentariosDe(recuerdo)">
-            <strong>{{ comentario.nombre }}</strong>
-            <p>{{ comentario.mensaje }}</p>
+        <div class="comment-list" *ngIf="comentariosRaizDe(recuerdo).length > 0; else noComments">
+          <article class="comment-thread" *ngFor="let comentario of comentariosRaizDe(recuerdo)">
+            <div class="comment-item">
+              <strong>{{ textoSeguro(comentario.nombre) }}</strong>
+              <p>{{ textoSeguro(comentario.mensaje) }}</p>
+              <button class="comment-reply-action" type="button" *ngIf="comentario.id" (click)="toggleRespuesta(recuerdo, comentario)">
+                <i class="fas fa-reply"></i>
+                Responder
+              </button>
+            </div>
+
+            <div class="reply-list" *ngIf="respuestasDe(comentario).length > 0">
+              <article class="comment-item reply" *ngFor="let respuesta of respuestasDe(comentario)">
+                <strong>{{ textoSeguro(respuesta.nombre) }}</strong>
+                <p>{{ textoSeguro(respuesta.mensaje) }}</p>
+              </article>
+            </div>
+
+            <form
+              class="comment-form reply-form"
+              *ngIf="comentario.id && draftPara(recuerdo, comentario.id || '').abierto"
+              (submit)="$event.preventDefault()">
+              <input
+                type="text"
+                [name]="'replyName-' + comentario.id"
+                [(ngModel)]="draftPara(recuerdo, comentario.id || '').nombre"
+                placeholder="Tu nombre">
+              <textarea
+                [name]="'replyMessage-' + comentario.id"
+                [(ngModel)]="draftPara(recuerdo, comentario.id || '').mensaje"
+                rows="2"
+                maxlength="280"
+                placeholder="Escribe una respuesta breve"></textarea>
+
+              <p class="status success" *ngIf="draftPara(recuerdo, comentario.id || '').success">{{ draftPara(recuerdo, comentario.id || '').success }}</p>
+              <p class="status error" *ngIf="draftPara(recuerdo, comentario.id || '').error">{{ draftPara(recuerdo, comentario.id || '').error }}</p>
+
+              <button
+                class="btn btn-small btn-primary"
+                type="button"
+                [disabled]="draftPara(recuerdo, comentario.id || '').loading"
+                (click)="comentar(recuerdo, comentario.id || '')">
+                <i class="fas" [class.fa-paper-plane]="!draftPara(recuerdo, comentario.id || '').loading" [class.fa-spinner]="draftPara(recuerdo, comentario.id || '').loading" [class.fa-spin]="draftPara(recuerdo, comentario.id || '').loading"></i>
+                {{ draftPara(recuerdo, comentario.id || '').loading ? 'Enviando' : 'Responder' }}
+              </button>
+            </form>
           </article>
         </div>
         <ng-template #noComments>

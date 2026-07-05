@@ -20,6 +20,7 @@ import { CsvExportService } from '../../services/csv-export.service';
 import { PartidosService } from '../../services/partidos.service';
 import { PedidosService } from '../../services/pedidos.service';
 import { RecuerdosService } from '../../services/recuerdos.service';
+import { censurarTexto } from '../../utils/text-moderation.util';
 
 @Component({
   selector: 'app-admin-page',
@@ -147,13 +148,8 @@ export class AdminPageComponent {
     this.mostrarAccion('Recuerdo destacado.');
   }
 
-  async aprobarComentario(comentario: ComentarioRecuerdo): Promise<void> {
-    if (!comentario.id) {
-      return;
-    }
-
-    await this.recuerdosService.aprobarComentario(comentario.id);
-    this.mostrarAccion('Comentario aprobado.');
+  textoSeguro(texto: string): string {
+    return censurarTexto(texto).texto;
   }
 
   async eliminarComentario(comentario: ComentarioRecuerdo): Promise<void> {
