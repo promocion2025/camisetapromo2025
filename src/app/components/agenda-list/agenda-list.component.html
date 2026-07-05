@@ -1,0 +1,36 @@
+<div class="empty-state" *ngIf="agenda.length === 0">
+  <i class="fas fa-calendar-day"></i>
+  <p>Aún no hay actividades publicadas.</p>
+</div>
+
+<div class="agenda-list" *ngIf="agenda.length > 0">
+  <article class="agenda-item" *ngFor="let item of agenda">
+    <div class="agenda-icon">
+      <i class="fas" [class]="icono(item.tipo)"></i>
+    </div>
+    <div class="agenda-time">
+      <strong>{{ item.horaInicio }}</strong>
+      <span *ngIf="item.horaFin">{{ item.horaFin }}</span>
+    </div>
+    <div class="agenda-body">
+      <div class="agenda-meta">
+        <span>{{ item.tipo }}</span>
+        <em>{{ formatFecha(item) }}</em>
+      </div>
+      <h3>{{ item.titulo }}</h3>
+      <p>
+        <i class="fas fa-location-dot"></i>
+        {{ item.lugar }}
+      </p>
+      <p *ngIf="item.descripcion">{{ item.descripcion }}</p>
+    </div>
+    <button
+      *ngIf="admin"
+      class="icon-button danger"
+      type="button"
+      aria-label="Eliminar actividad"
+      (click)="eliminar.emit(item)">
+      <i class="fas fa-trash"></i>
+    </button>
+  </article>
+</div>

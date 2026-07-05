@@ -1,0 +1,29 @@
+<section class="page-hero compact">
+  <div class="page-shell">
+    <span class="kicker">Cronograma deportivo</span>
+    <h1>Partidos del reencuentro</h1>
+    <p>Encuentros, horarios, lugares y resultados para acompañar la jornada deportiva de las promociones.</p>
+  </div>
+</section>
+
+<main class="page-shell content-band">
+  <section class="surface-panel">
+    <div class="panel-heading">
+      <i class="fas fa-futbol"></i>
+      <div>
+        <h2>Programación</h2>
+        <p>Los partidos se publican desde el panel de administración.</p>
+      </div>
+    </div>
+
+    <app-partido-list [partidos]="partidos$ | async"></app-partido-list>
+  </section>
+
+  <section class="sport-note">
+    <i class="fas fa-whistle"></i>
+    <div>
+      <h2>Sugerencia para la organización</h2>
+      <p>Se puede agregar inscripción de equipos, fixture por llaves y tabla de goleadores cuando definan las reglas del campeonato.</p>
+    </div>
+  </section>
+</main>

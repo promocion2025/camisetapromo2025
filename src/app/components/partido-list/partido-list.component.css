@@ -1,0 +1,130 @@
+.match-list {
+  display: grid;
+  gap: 14px;
+}
+
+.match-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  overflow: hidden;
+}
+
+.match-date {
+  padding: 18px;
+  background: var(--linen);
+  border-right: 1px solid var(--line);
+  display: grid;
+  align-content: center;
+  gap: 5px;
+}
+
+.match-date strong {
+  color: var(--ink);
+  text-transform: capitalize;
+}
+
+.match-date span {
+  color: var(--maroon);
+  font-weight: 800;
+}
+
+.match-main {
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.match-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.match-labels span,
+.match-labels em {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.match-labels em.programado {
+  color: var(--navy);
+}
+
+.match-labels em.en_juego {
+  color: var(--gold);
+}
+
+.match-labels em.finalizado {
+  color: var(--success);
+}
+
+.score-line {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink);
+}
+
+.score-line strong:last-child {
+  text-align: right;
+}
+
+.score-line span {
+  min-width: 56px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 900;
+  text-align: center;
+}
+
+.match-main p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 0.86rem;
+}
+
+.match-main i {
+  color: var(--gold);
+  margin-right: 6px;
+}
+
+.match-actions {
+  padding: 18px;
+  border-left: 1px solid var(--line);
+  display: grid;
+  align-content: center;
+  gap: 8px;
+}
+
+@media (max-width: 820px) {
+  .match-card {
+    grid-template-columns: 1fr;
+  }
+
+  .match-date,
+  .match-actions {
+    border: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .score-line {
+    grid-template-columns: 1fr;
+  }
+
+  .score-line strong:last-child {
+    text-align: left;
+  }
+}

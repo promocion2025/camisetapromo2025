@@ -1,10 +1,64 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Permite leer cualquier pedido (público)
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email in ['mivermedina7@gmail.com'];
+    }
+
     match /pedidos_camisetas/{pedidoId} {
       allow read: if true;
-      allow write: if true;
+      allow create: if request.resource.data.keys().hasOnly([
+          'nombre',
+          'numero',
+          'talla',
+          'genero',
+          'corte',
+          'telefono',
+          'notas',
+          'fecha'
+        ])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 80
+        && request.resource.data.numero is number
+        && request.resource.data.numero >= 1
+        && request.resource.data.numero <= 99
+        && request.resource.data.talla is string
+        && (!('genero' in request.resource.data) || request.resource.data.genero in ['hombre', 'mujer'])
+        && (!('corte' in request.resource.data) || request.resource.data.corte in ['clasico', 'entallado', 'amplio']);
+      allow update, delete: if isAdmin();
+    }
+
+    match /recuerdos_promocion/{recuerdoId} {
+      allow read: if resource.data.estado in ['aprobado', 'destacado'] || isAdmin();
+      allow create: if request.resource.data.keys().hasOnly([
+          'nombre',
+          'promocion',
+          'mensaje',
+          'imagenUrl',
+          'imagenPath',
+          'estado',
+          'fecha'
+        ])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 80
+        && request.resource.data.mensaje is string
+        && request.resource.data.mensaje.size() >= 5
+        && request.resource.data.mensaje.size() <= 900
+        && request.resource.data.estado == 'pendiente';
+      allow update, delete: if isAdmin();
+    }
+
+    match /partidos_reencuentro/{partidoId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /agenda_reencuentro/{agendaId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
     }
   }
 }

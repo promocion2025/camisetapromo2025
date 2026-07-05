@@ -1,0 +1,16 @@
+.note-band {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--body);
+  display: flex;
+  gap: 12px;
+}
+
+.note-band i {
+  color: var(--gold);
+  margin-top: 3px;
+}

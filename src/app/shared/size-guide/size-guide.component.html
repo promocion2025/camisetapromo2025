@@ -1,0 +1,23 @@
+<div class="guide-grid" [class.compact]="compact">
+  <section class="guide-panel" *ngFor="let grupo of grupos">
+    <div class="guide-heading">
+      <span>{{ grupo.etiqueta }}</span>
+      <small>{{ grupo.notas }}</small>
+    </div>
+
+    <div class="measure-table" role="table">
+      <div class="measure-row head" role="row">
+        <span>Talla</span>
+        <span>Pecho</span>
+        <span>Cintura</span>
+        <span>Largo</span>
+      </div>
+      <div class="measure-row" role="row" *ngFor="let item of grupo.tallas">
+        <strong>{{ item.talla }}</strong>
+        <span>{{ item.pecho }}</span>
+        <span>{{ item.cintura }}</span>
+        <span>{{ item.largo }}</span>
+      </div>
+    </div>
+  </section>
+</div>

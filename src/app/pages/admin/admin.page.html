@@ -1,0 +1,146 @@
+<section class="page-hero compact admin-hero">
+  <div class="page-shell">
+    <span class="kicker">Gestión privada</span>
+    <h1>Administración</h1>
+    <p>Acceso con Google para revisar pedidos, exportar registros y moderar recuerdos.</p>
+  </div>
+</section>
+
+<main class="page-shell content-band">
+  <ng-container *ngIf="isAdmin$ | async; else loginPanel">
+    <section class="admin-toolbar" *ngIf="pedidos$ | async as pedidos">
+      <div>
+        <strong>{{ pedidos.length }}</strong>
+        <span>pedidos registrados</span>
+      </div>
+      <button class="btn btn-primary" type="button" (click)="exportar(pedidos)">
+        <i class="fas fa-download"></i>
+        Exportar CSV
+      </button>
+      <button class="btn btn-secondary" type="button" (click)="logout()">
+        <i class="fas fa-arrow-right-from-bracket"></i>
+        Salir
+      </button>
+    </section>
+
+    <p class="status success" *ngIf="actionMessage">
+      <i class="fas fa-check-circle"></i>
+      {{ actionMessage }}
+    </p>
+
+    <section class="surface-panel" *ngIf="pedidos$ | async as pedidos">
+      <div class="panel-heading">
+        <i class="fas fa-chart-simple"></i>
+        <div>
+          <h2>Dashboard de tallas</h2>
+          <p>Resumen por género, corte y talla.</p>
+        </div>
+      </div>
+      <app-pedido-dashboard [pedidos]="pedidos"></app-pedido-dashboard>
+    </section>
+
+    <section class="surface-panel" *ngIf="pedidos$ | async as pedidos">
+      <div class="panel-heading">
+        <i class="fas fa-clipboard-list"></i>
+        <div>
+          <h2>Pedidos de camisetas</h2>
+          <p>Registros activos del pedido.</p>
+        </div>
+      </div>
+      <app-pedidos-table [pedidos]="pedidos" [admin]="true" (eliminar)="eliminarPedido($event)"></app-pedidos-table>
+    </section>
+
+    <section class="surface-panel">
+      <div class="panel-heading">
+        <i class="fas fa-calendar-day"></i>
+        <div>
+          <h2>Agenda del reencuentro</h2>
+          <p>Misa, ceremonia, almuerzo, deporte y baile.</p>
+        </div>
+      </div>
+
+      <div class="admin-split" *ngIf="agenda$ | async as agenda">
+        <app-agenda-form></app-agenda-form>
+        <app-agenda-list [items]="agenda" [admin]="true" (eliminar)="eliminarAgenda($event)"></app-agenda-list>
+      </div>
+    </section>
+
+    <section class="surface-panel">
+      <div class="panel-heading">
+        <i class="fas fa-futbol"></i>
+        <div>
+          <h2>Partidos del reencuentro</h2>
+          <p>Crear y controlar el cronograma deportivo.</p>
+        </div>
+      </div>
+
+      <div class="admin-split" *ngIf="partidos$ | async as partidos">
+        <app-partido-form></app-partido-form>
+        <app-partido-list
+          [partidos]="partidos"
+          [admin]="true"
+          (finalizar)="finalizarPartido($event)"
+          (eliminar)="eliminarPartido($event)">
+        </app-partido-list>
+      </div>
+    </section>
+
+    <section class="surface-panel" *ngIf="recuerdos$ | async as recuerdos">
+      <div class="panel-heading">
+        <i class="fas fa-images"></i>
+        <div>
+          <h2>Recuerdos y fotos</h2>
+          <p>Aprobación, pausa y eliminación de publicaciones.</p>
+        </div>
+      </div>
+      <app-recuerdo-gallery
+        [recuerdos]="recuerdos"
+        [admin]="true"
+        (aprobar)="aprobarRecuerdo($event)"
+        (destacar)="destacarRecuerdo($event)"
+        (pendiente)="pausarRecuerdo($event)"
+        (eliminar)="eliminarRecuerdo($event)">
+      </app-recuerdo-gallery>
+    </section>
+  </ng-container>
+
+  <ng-template #loginPanel>
+    <section class="login-panel">
+      <div class="login-mark">
+        <i class="fas fa-user-shield"></i>
+      </div>
+      <h2>Ingreso de administradores</h2>
+      <p *ngIf="user$ | async as user; else noUser">
+        {{ user.email }} no figura como administrador autorizado.
+      </p>
+      <ng-template #noUser>
+        <p>Usa una cuenta registrada como administradora.</p>
+      </ng-template>
+      <button class="btn btn-primary" type="button" (click)="login()">
+        <i class="fab fa-google"></i>
+        Entrar con Google
+      </button>
+
+      <div class="login-divider"><span>o</span></div>
+
+      <form class="stack" (ngSubmit)="loginEmail()">
+        <label class="field">
+          <span>Correo</span>
+          <input type="email" name="email" [(ngModel)]="email" autocomplete="email" required>
+        </label>
+        <label class="field">
+          <span>Contraseña</span>
+          <input type="password" name="password" [(ngModel)]="password" autocomplete="current-password" required>
+        </label>
+        <button class="btn btn-secondary full" type="submit">
+          <i class="fas fa-envelope"></i>
+          Entrar con correo
+        </button>
+      </form>
+      <p class="status error" *ngIf="loginError">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ loginError }}
+      </p>
+    </section>
+  </ng-template>
+</main>

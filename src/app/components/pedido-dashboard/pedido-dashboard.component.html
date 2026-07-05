@@ -1,0 +1,30 @@
+<div class="dashboard-grid">
+  <article class="total-card">
+    <span>Total registrados</span>
+    <strong>{{ total }}</strong>
+  </article>
+
+  <section>
+    <h3>Por género</h3>
+    <div class="stat-row" *ngFor="let item of porGenero">
+      <span>{{ item.label }}</span>
+      <strong>{{ item.value }}</strong>
+    </div>
+  </section>
+
+  <section>
+    <h3>Por corte</h3>
+    <div class="stat-row" *ngFor="let item of porCorte">
+      <span>{{ item.label }}</span>
+      <strong>{{ item.value }}</strong>
+    </div>
+  </section>
+
+  <section>
+    <h3>Por talla</h3>
+    <div class="stat-row" *ngFor="let item of porTalla">
+      <span>{{ item.label }}</span>
+      <strong>{{ item.value }}</strong>
+    </div>
+  </section>
+</div>

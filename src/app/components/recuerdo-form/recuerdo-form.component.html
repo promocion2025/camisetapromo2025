@@ -1,0 +1,39 @@
+<form class="stack" (ngSubmit)="enviar()">
+  <label class="field">
+    <span>Nombre</span>
+    <input type="text" name="nombre" [(ngModel)]="form.nombre" placeholder="Tu nombre" required>
+  </label>
+
+  <label class="field">
+    <span>Promoción</span>
+    <input type="text" name="promocion" [(ngModel)]="form.promocion" placeholder="Ej. 2026">
+  </label>
+
+  <label class="field">
+    <span>Mensaje</span>
+    <textarea name="mensaje" [(ngModel)]="form.mensaje" rows="5" placeholder="Una anécdota, saludo o recuerdo" required></textarea>
+  </label>
+
+  <label class="upload-field">
+    <i class="fas fa-image"></i>
+    <span>{{ file ? file.name : 'Agregar foto' }}</span>
+    <input type="file" accept="image/*" (change)="seleccionarArchivo($event)">
+  </label>
+
+  <img class="preview" *ngIf="previewUrl" [src]="previewUrl" alt="Vista previa">
+
+  <p class="status success" *ngIf="successMessage">
+    <i class="fas fa-check-circle"></i>
+    {{ successMessage }}
+  </p>
+
+  <p class="status error" *ngIf="errorMessage">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ errorMessage }}
+  </p>
+
+  <button class="btn btn-primary full" type="submit" [disabled]="isLoading">
+    <i class="fas" [class.fa-paper-plane]="!isLoading" [class.fa-spinner]="isLoading" [class.fa-spin]="isLoading"></i>
+    {{ isLoading ? 'Enviando' : 'Compartir recuerdo' }}
+  </button>
+</form>

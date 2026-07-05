@@ -1,0 +1,76 @@
+<form class="stack" (submit)="$event.preventDefault()">
+  <div class="form-row">
+    <label class="field">
+      <span>Nombre en camiseta</span>
+      <input type="text" name="nombre" [(ngModel)]="form.nombre" placeholder="Ej. Juan Pérez" required>
+    </label>
+
+    <label class="field">
+      <span>Número</span>
+      <input type="number" name="numero" [(ngModel)]="form.numero" min="1" max="99" placeholder="10" required>
+    </label>
+  </div>
+
+  <div class="choice-group" aria-label="Género">
+    <button
+      *ngFor="let item of generos"
+      type="button"
+      class="choice-button"
+      [class.active]="form.genero === item.valor"
+      (click)="seleccionarGenero(item.valor)">
+      {{ item.etiqueta }}
+    </button>
+  </div>
+
+  <div class="choice-group" aria-label="Corte de camiseta">
+    <button
+      *ngFor="let item of cortes"
+      type="button"
+      class="choice-button"
+      [class.active]="form.corte === item.valor"
+      (click)="seleccionarCorte(item.valor)">
+      {{ item.etiqueta }}
+    </button>
+  </div>
+
+  <div class="form-row">
+    <label class="field">
+      <span>Talla</span>
+      <select name="talla" [(ngModel)]="form.talla" required>
+        <option *ngFor="let item of tallasDisponibles" [value]="item.talla">{{ item.talla }}</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Teléfono</span>
+      <input type="tel" name="telefono" [(ngModel)]="form.telefono" placeholder="Opcional">
+    </label>
+  </div>
+
+  <div class="measure-note" *ngIf="medidaSeleccionada">
+    <strong>{{ medidaSeleccionada.talla }}</strong>
+    <span>Pecho {{ medidaSeleccionada.pecho }}</span>
+    <span>Cintura {{ medidaSeleccionada.cintura }}</span>
+    <span>Largo {{ medidaSeleccionada.largo }}</span>
+  </div>
+
+  <label class="field">
+    <span>Observación</span>
+    <textarea name="notas" [(ngModel)]="form.notas" rows="3" placeholder="Ej. confirmar medida antes de confección"></textarea>
+  </label>
+
+  <p class="status success" *ngIf="successMessage">
+    <i class="fas fa-check-circle"></i>
+    {{ successMessage }}
+  </p>
+
+  <p class="status error" *ngIf="errorMessage">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ errorMessage }}
+  </p>
+
+  <button class="btn btn-primary full" type="button" [disabled]="isLoading" (click)="registrar()">
+    <i class="fas" [class.fa-user-plus]="!isLoading" [class.fa-spinner]="isLoading" [class.fa-spin]="isLoading"></i>
+    {{ isLoading ? 'Guardando' : 'Registrar camiseta' }}
+  </button>
+</form>

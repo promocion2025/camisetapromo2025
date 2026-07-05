@@ -1,0 +1,21 @@
+<section class="page-hero compact">
+  <div class="page-shell">
+    <span class="kicker">Programa oficial</span>
+    <h1>Agenda del reencuentro</h1>
+    <p>Misa, ceremonia, almuerzo, deportes y baile en una programación clara para todos los compañeros.</p>
+  </div>
+</section>
+
+<main class="page-shell content-band">
+  <section class="surface-panel">
+    <div class="panel-heading">
+      <i class="fas fa-calendar-day"></i>
+      <div>
+        <h2>Actividades</h2>
+        <p>Programa actualizado por administración.</p>
+      </div>
+    </div>
+
+    <app-agenda-list [items]="agenda$ | async"></app-agenda-list>
+  </section>
+</main>

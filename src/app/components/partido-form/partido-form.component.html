@@ -1,0 +1,67 @@
+<form class="stack" (ngSubmit)="guardar()">
+  <div class="form-row">
+    <label class="field">
+      <span>Deporte</span>
+      <input type="text" name="deporte" [(ngModel)]="form.deporte" required>
+    </label>
+    <label class="field">
+      <span>Categoría</span>
+      <input type="text" name="categoria" [(ngModel)]="form.categoria" required>
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label class="field">
+      <span>Equipo A</span>
+      <input type="text" name="equipoA" [(ngModel)]="form.equipoA" placeholder="Promoción 2005" required>
+    </label>
+    <label class="field">
+      <span>Equipo B</span>
+      <input type="text" name="equipoB" [(ngModel)]="form.equipoB" placeholder="Promoción 2006" required>
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label class="field">
+      <span>Fecha</span>
+      <input type="date" name="fecha" [(ngModel)]="form.fecha" required>
+    </label>
+    <label class="field">
+      <span>Hora</span>
+      <input type="time" name="hora" [(ngModel)]="form.hora" required>
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label class="field">
+      <span>Lugar</span>
+      <input type="text" name="lugar" [(ngModel)]="form.lugar" required>
+    </label>
+    <label class="field">
+      <span>Estado</span>
+      <select name="estado" [(ngModel)]="form.estado">
+        <option *ngFor="let estado of estados" [value]="estado">{{ estado.replace('_', ' ') }}</option>
+      </select>
+    </label>
+  </div>
+
+  <label class="field">
+    <span>Detalle</span>
+    <textarea name="detalle" [(ngModel)]="form.detalle" rows="3" placeholder="Ej. partido relámpago, semifinal, reglas especiales"></textarea>
+  </label>
+
+  <p class="status success" *ngIf="message">
+    <i class="fas fa-check-circle"></i>
+    {{ message }}
+  </p>
+
+  <p class="status error" *ngIf="error">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ error }}
+  </p>
+
+  <button class="btn btn-primary full" type="submit" [disabled]="isLoading">
+    <i class="fas" [class.fa-plus]="!isLoading" [class.fa-spinner]="isLoading" [class.fa-spin]="isLoading"></i>
+    {{ isLoading ? 'Guardando' : 'Agregar partido' }}
+  </button>
+</form>

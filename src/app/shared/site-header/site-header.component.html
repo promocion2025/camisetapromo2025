@@ -1,0 +1,26 @@
+<header class="site-header">
+  <a class="brand" routerLink="/" (click)="closeMenu()">
+    <img src="assets/logo-colegio.png" alt="Logo IEE José María Arguedas">
+    <span>
+      <strong>Promoción 2025</strong>
+      <small>IEE José María Arguedas</small>
+    </span>
+  </a>
+
+  <button class="menu-button" type="button" (click)="toggleMenu()" aria-label="Abrir navegación">
+    <i class="fas" [class.fa-bars]="!menuOpen" [class.fa-times]="menuOpen"></i>
+  </button>
+
+  <nav class="main-nav" [class.open]="menuOpen">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Inicio</a>
+    <a routerLink="/registro" routerLinkActive="active" (click)="closeMenu()">Registro</a>
+    <a routerLink="/tallas" routerLinkActive="active" (click)="closeMenu()">Tallas</a>
+    <a routerLink="/agenda" routerLinkActive="active" (click)="closeMenu()">Agenda</a>
+    <a routerLink="/partidos" routerLinkActive="active" (click)="closeMenu()">Partidos</a>
+    <a routerLink="/comunidad" routerLinkActive="active" (click)="closeMenu()">Comunidad</a>
+    <a class="admin-entry" routerLink="/admin" routerLinkActive="active" (click)="closeMenu()">
+      <i class="fas fa-user-shield"></i>
+      Admin
+    </a>
+  </nav>
+</header>

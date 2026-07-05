@@ -1,0 +1,7 @@
+.split-layout {
+  align-items: start;
+}
+
+.muted-panel {
+  background: var(--paper);
+}

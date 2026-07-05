@@ -1,5 +1,8 @@
 export const environment = {
   production: true,
+  adminEmails: [
+    'mivermedina7@gmail.com'
+  ],
   firebase: {
     apiKey: "AIzaSyBqwNq4_5B_8SCejMki2eeJE-nOdr2HYlA",
     authDomain: "camiseta-d74e5.firebaseapp.com",

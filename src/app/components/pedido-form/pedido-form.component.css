@@ -1,0 +1,50 @@
+.choice-group {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.choice-group[aria-label="Género"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.choice-button {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.choice-button.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+
+.measure-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--linen);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.measure-note strong {
+  color: var(--maroon);
+}
+
+@media (max-width: 560px) {
+  .choice-group,
+  .choice-group[aria-label="Género"] {
+    grid-template-columns: 1fr;
+  }
+}

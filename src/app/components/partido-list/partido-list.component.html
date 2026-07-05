@@ -1,0 +1,48 @@
+<div class="empty-state" *ngIf="items.length === 0">
+  <i class="fas fa-futbol"></i>
+  <p>Aún no hay partidos programados.</p>
+</div>
+
+<div class="match-list" *ngIf="items.length > 0">
+  <article class="match-card" *ngFor="let partido of items">
+    <div class="match-date">
+      <strong>{{ formatFecha(partido) }}</strong>
+      <span>{{ partido.hora || 'Hora por confirmar' }}</span>
+    </div>
+
+    <div class="match-main">
+      <div class="match-labels">
+        <span>{{ partido.deporte }}</span>
+        <span>{{ partido.categoria }}</span>
+        <em [class]="partido.estado">{{ partido.estado.replace('_', ' ') }}</em>
+      </div>
+
+      <div class="score-line">
+        <strong>{{ partido.equipoA }}</strong>
+        <span>
+          {{ partido.marcadorA ?? '-' }}
+          :
+          {{ partido.marcadorB ?? '-' }}
+        </span>
+        <strong>{{ partido.equipoB }}</strong>
+      </div>
+
+      <p>
+        <i class="fas fa-location-dot"></i>
+        {{ partido.lugar }}
+      </p>
+      <p *ngIf="partido.detalle">{{ partido.detalle }}</p>
+    </div>
+
+    <div class="match-actions" *ngIf="admin">
+      <button class="btn btn-small btn-secondary" type="button" (click)="finalizar.emit(partido)">
+        <i class="fas fa-flag-checkered"></i>
+        Finalizar
+      </button>
+      <button class="btn btn-small btn-danger" type="button" (click)="eliminar.emit(partido)">
+        <i class="fas fa-trash"></i>
+        Eliminar
+      </button>
+    </div>
+  </article>
+</div>

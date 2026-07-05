@@ -1,0 +1,14 @@
+.community-layout {
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  align-items: start;
+}
+
+.gallery-panel {
+  min-width: 0;
+}
+
+@media (max-width: 960px) {
+  .community-layout {
+    grid-template-columns: 1fr;
+  }
+}

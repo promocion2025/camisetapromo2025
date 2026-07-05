@@ -1,0 +1,44 @@
+<section class="page-hero compact">
+  <div class="page-shell">
+    <span class="kicker">Pedido oficial</span>
+    <h1>Registro de camiseta</h1>
+    <p>Datos de nombre, número, talla, género y corte para confeccionar el pedido con menos correcciones.</p>
+  </div>
+</section>
+
+<main class="page-shell content-band">
+  <div class="split-layout">
+    <section class="surface-panel">
+      <div class="panel-heading">
+        <i class="fas fa-shirt"></i>
+        <div>
+          <h2>Datos del pedido</h2>
+          <p>Registro individual de camiseta.</p>
+        </div>
+      </div>
+      <app-pedido-form></app-pedido-form>
+    </section>
+
+    <aside class="surface-panel muted-panel">
+      <div class="panel-heading">
+        <i class="fas fa-ruler-combined"></i>
+        <div>
+          <h2>Medidas base</h2>
+          <p>Referencia rápida por género.</p>
+        </div>
+      </div>
+      <app-size-guide [compact]="true"></app-size-guide>
+    </aside>
+  </div>
+
+  <section class="surface-panel">
+    <div class="panel-heading">
+      <i class="fas fa-users"></i>
+      <div>
+        <h2>Compañeros registrados</h2>
+        <p>Lista pública ordenada por número.</p>
+      </div>
+    </div>
+    <app-pedidos-table [pedidos]="pedidos$ | async"></app-pedidos-table>
+  </section>
+</main>

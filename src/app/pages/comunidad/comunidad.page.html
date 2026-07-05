@@ -1,0 +1,33 @@
+<section class="page-hero compact">
+  <div class="page-shell">
+    <span class="kicker">Memoria compartida</span>
+    <h1>Fotos y experiencias</h1>
+    <p>Un espacio para conservar saludos, momentos y fotografías del reencuentro.</p>
+  </div>
+</section>
+
+<main class="page-shell content-band">
+  <div class="split-layout community-layout">
+    <section class="surface-panel">
+      <div class="panel-heading">
+        <i class="fas fa-pen-nib"></i>
+        <div>
+          <h2>Compartir recuerdo</h2>
+          <p>Los aportes pasan por revisión antes de publicarse.</p>
+        </div>
+      </div>
+      <app-recuerdo-form></app-recuerdo-form>
+    </section>
+
+    <section class="surface-panel gallery-panel">
+      <div class="panel-heading">
+        <i class="fas fa-camera-retro"></i>
+        <div>
+          <h2>Muro de recuerdos</h2>
+          <p>Publicaciones aprobadas por administración.</p>
+        </div>
+      </div>
+      <app-recuerdo-gallery [recuerdos]="recuerdos$ | async"></app-recuerdo-gallery>
+    </section>
+  </div>
+</main>

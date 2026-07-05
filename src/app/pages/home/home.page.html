@@ -1,0 +1,99 @@
+<section class="home-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-content">
+    <span class="kicker">Reencuentro de promociones</span>
+    <h1>IEE José María Arguedas</h1>
+    <p>
+      Promoción 2025: <span class="highlight">¡Nos reencontramos!</span>
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" routerLink="/registro">
+        <i class="fas fa-shirt"></i>
+        Registrar camiseta
+      </a>
+      <a class="btn btn-secondary" routerLink="/comunidad">
+        <i class="fas fa-camera-retro"></i>
+        Ver recuerdos
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="summary-band">
+  <div class="summary-grid" *ngIf="pedidos$ | async as pedidos">
+    <article>
+      <strong>{{ pedidos.length }}</strong>
+      <span>Registros</span>
+    </article>
+    <article>
+      <strong>{{ (recuerdos$ | async)?.length || 0 }}</strong>
+      <span>Recuerdos publicados</span>
+    </article>
+    <article>
+      <strong>{{ (agenda$ | async)?.length || 0 }}</strong>
+      <span>Actividades programadas</span>
+    </article>
+  </div>
+</section>
+
+<section class="page-shell content-band">
+  <div class="section-heading">
+    <span class="kicker">Ruta del encuentro</span>
+    <h2>Todo separado para trabajar mejor</h2>
+  </div>
+
+  <div class="route-grid">
+    <a class="route-card" routerLink="/registro">
+      <i class="fas fa-clipboard-list"></i>
+      <h3>Registro</h3>
+      <p>Datos de camiseta, talla, corte, género y número.</p>
+    </a>
+    <a class="route-card" routerLink="/tallas">
+      <i class="fas fa-ruler-combined"></i>
+      <h3>Tallas</h3>
+      <p>Medidas referenciales separadas para hombres y mujeres.</p>
+    </a>
+    <a class="route-card" routerLink="/agenda">
+      <i class="fas fa-calendar-day"></i>
+      <h3>Agenda</h3>
+      <p>Misa, ceremonia, almuerzo, deporte y baile en un solo programa.</p>
+    </a>
+    <a class="route-card" routerLink="/partidos">
+      <i class="fas fa-futbol"></i>
+      <h3>Partidos</h3>
+      <p>Cronograma, lugares y resultados de la jornada deportiva.</p>
+    </a>
+    <a class="route-card" routerLink="/comunidad">
+      <i class="fas fa-images"></i>
+      <h3>Comunidad</h3>
+      <p>Fotos, mensajes y experiencias con revisión previa.</p>
+    </a>
+    <a class="route-card" routerLink="/admin">
+      <i class="fas fa-user-shield"></i>
+      <h3>Admin</h3>
+      <p>Gestión por Google para pedidos y recuerdos publicados.</p>
+    </a>
+  </div>
+</section>
+
+<section class="page-shell content-band memories-preview">
+  <div class="section-heading">
+    <span class="kicker">Muro de recuerdos</span>
+    <h2>Historias compartidas</h2>
+  </div>
+
+  <div class="preview-grid" *ngIf="recuerdosPreview$ | async as recuerdos">
+    <article class="preview-card" *ngFor="let recuerdo of recuerdos">
+      <img *ngIf="recuerdo.imagenUrl" [src]="recuerdo.imagenUrl" [alt]="'Foto de ' + recuerdo.nombre">
+      <div>
+        <strong>{{ recuerdo.nombre }}</strong>
+        <p>{{ recuerdo.mensaje }}</p>
+      </div>
+    </article>
+
+    <div class="empty-state" *ngIf="recuerdos.length === 0">
+      <i class="fas fa-camera-retro"></i>
+      <p>El muro se llenará con recuerdos aprobados por administración.</p>
+    </div>
+  </div>
+</section>
